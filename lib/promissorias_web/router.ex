@@ -19,6 +19,13 @@ defmodule PromissoriasWeb.Router do
     get "/", AppController, :index
   end
 
+  scope "/api", PromissoriasWeb do
+    pipe_through :api
+
+    get "/users", UserController, :index
+    get "/users/:id", UserController, :show
+  end
+
   scope "/auth", PromissoriasWeb do
     pipe_through :api
 
