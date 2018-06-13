@@ -11,7 +11,7 @@ config :promissorias, PromissoriasWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/webpack/bin/webpack.js", "--mode", "development", "--watch-stdin",
+  watchers: [node: ["node_modules/webpack/bin/webpack.js", "--watch-stdin", "--config", "build/webpack.dev.conf.js",
                     cd: Path.expand("../assets", __DIR__)]]
 
 # ## SSL Support
