@@ -1,5 +1,4 @@
-<template>
-  <div class="login-view">
-    login
-  </div>
+<template lang="pug">
+  .login-view
+    | login
 </template>
