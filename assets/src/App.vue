@@ -1,8 +1,7 @@
-<template>
-  <div id="app">
-    <router-view v-if="isAuthenticated"/>
-    <Login v-else />
-  </div>
+<template lang="pug">
+  v-app#app
+    router-view(v-if="isAuthenticated")
+    Login(v-else)
 </template>
 
 <script>
