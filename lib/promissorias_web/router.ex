@@ -19,8 +19,9 @@ defmodule PromissoriasWeb.Router do
     get "/", AppController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", PromissoriasWeb do
-  #   pipe_through :api
-  # end
+  scope "/auth", PromissoriasWeb do
+    pipe_through :api
+
+    post "/", AuthController, :login
+  end
 end
