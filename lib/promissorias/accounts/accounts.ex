@@ -3,23 +3,22 @@ defmodule Promissorias.Accounts do
   The Accounts context
   """
 
+  alias Promissorias.Repo
   alias Promissorias.Accounts.User
 
   def list_users do
-    [
-      %User{id: "1", name: "Silvio", username: "silvio"},
-      %User{id: "2", name: "Yara", username: "yara"},
-      %User{id: "3", name: "Gabriel", username: "gabriel"}
-    ]
+    Repo.all(User)
   end
 
   def get_user(id) do
-    Enum.find(list_users(), fn map -> map.id == id end)
+    Repo.get(User, id)
+  end
+
+  def get_user!(id) do
+    Repo.get!(User, id)
   end
 
   def get_user_by(params) do
-    Enum.find(list_users(), fn map ->
-      Enum.all?(params, fn {key, val} -> Map.get(map, key) == val end)
-    end)
+    Repo.get_by(User, params)
   end
 end
