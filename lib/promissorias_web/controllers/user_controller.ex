@@ -13,12 +13,20 @@ defmodule PromissoriasWeb.UserController do
     render conn, "show.json", user: user
   end
 
-  def create(conn, user_params) do
-    case Accounts.create_user(user_params) do
+  def create(conn, %{"credential" => _creds} = user_params) do
+    case Accounts.register_user(user_params) do
       {:ok, user} ->
         render(conn, "show.json", user: user)
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "error.json", changeset: changeset)
+        conn
+        |> put_status(:bad_request)
+        |> render("error.json", changeset: changeset)
     end
+  end
+
+  def create(conn, _user_params) do
+    conn
+    |> put_status(:bad_request)
+    |> render("error.json", changeset: %{ errors: [credential: "missing credentials"]})
   end
 end
