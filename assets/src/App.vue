@@ -1,17 +1,20 @@
 <template lang="pug">
   v-app#app
-    router-view(v-if="isAuthenticated")
-    Login(v-else)
+    layout(v-if="isAuthenticated")
+      router-view
+    login(v-else)
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import Login from './views/Login'
+import Layout from './components/layout/Layout.vue'
 
 export default {
   name: 'App',
   components: {
-    Login
+    Login,
+    Layout
   },
   computed: {
     ...mapGetters(['isAuthenticated'])
