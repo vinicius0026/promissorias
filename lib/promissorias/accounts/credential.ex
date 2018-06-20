@@ -2,13 +2,14 @@ defmodule Promissorias.Accounts.Credential do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:email]}
+  @derive {Jason.Encoder, only: [:email, :is_admin]}
 
   schema "credentials" do
-    field :email, :string
-    field :password, :string, virtual: true
-    field :password_hash, :string
-    field :user_id, :id
+    field(:email, :string)
+    field(:password, :string, virtual: true)
+    field(:password_hash, :string)
+    field(:user_id, :id)
+    field(:is_admin, :boolean)
 
     timestamps()
   end
@@ -16,7 +17,7 @@ defmodule Promissorias.Accounts.Credential do
   @doc false
   def changeset(credential, attrs) do
     credential
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :is_admin])
     |> validate_required([:email, :password])
     |> validate_length(:password, min: 6, max: 100)
     |> unique_constraint(:email)
@@ -27,6 +28,7 @@ defmodule Promissorias.Accounts.Credential do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
         put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(pass))
+
       _ ->
         changeset
     end
