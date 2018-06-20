@@ -32,13 +32,11 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'
+import { mapMutations, mapActions, mapGetters } from 'vuex'
 
 export default {
-  data() {
-    return {
-      isAdmin: true
-    }
+  computed: {
+    ...mapGetters(['isAdmin'])
   },
   methods: {
     ...mapMutations(['toggleSideBar']),

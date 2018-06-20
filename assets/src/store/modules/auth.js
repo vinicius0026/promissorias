@@ -5,7 +5,8 @@ const state = {
 }
 
 const getters = {
-  isAuthenticated: state => !!state.user
+  isAuthenticated: state => !!state.user,
+  isAdmin: state => (state.user && state.user.credential.is_admin) || false
 }
 
 const mutations = {

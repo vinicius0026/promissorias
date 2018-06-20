@@ -2,7 +2,7 @@
   v-navigation-drawer(
     fixed
     app
-    :value="showSideBar"
+    :value="isAdmin && showSideBar"
     @input="setSideBar"
     :clipped="$vuetify.breakpoint.mdAndUp"
   )
@@ -25,7 +25,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['showSideBar'])
+    ...mapGetters(['showSideBar', 'isAdmin'])
   },
   methods: {
     ...mapMutations(['setSideBar'])
