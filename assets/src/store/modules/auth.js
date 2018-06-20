@@ -11,6 +11,20 @@ const getters = {
 const mutations = {
   setUser(state, user) {
     state.user = user
+    try {
+      window.localStorage.setItem('user', JSON.stringify(user))
+    } catch (err) {
+      console.warn(`error setting user to local storage: ${err}`)
+    }
+  },
+  loadUserFromLocalStorage(state) {
+    try {
+      const user = JSON.parse(window.localStorage.getItem('user'))
+      state.user = user
+    } catch (err) {
+      console.warn(`error loading user from local storage: ${err}`)
+      state.user = null
+    }
   }
 }
 

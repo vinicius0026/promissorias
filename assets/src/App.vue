@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import Login from './views/Login'
 import Layout from './components/layout/Layout.vue'
 
@@ -18,6 +18,12 @@ export default {
   },
   computed: {
     ...mapGetters(['isAuthenticated'])
+  },
+  mounted() {
+    this.loadUserFromLocalStorage()
+  },
+  methods: {
+    ...mapMutations(['loadUserFromLocalStorage'])
   }
 }
 </script>
