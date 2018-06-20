@@ -1,29 +1,32 @@
 <template lang="pug">
-  .login-view
-    v-container
-      v-layout
-        v-flex(xs12 sm6 offset-sm3)
-          v-card
-            v-card-title(primary-title)
-              div
-                h3.headline.mb-0 Login
-
+  v-content
+    v-container(fluid fill-height)
+      v-layout(align-center justify-center)
+        v-flex(xs12 sm8)
+          v-card.elevation-12
+            v-toolbar(dark color="primary")
+              v-toolbar-title Login
             v-card-text
-              v-form(ref="form")
+              v-form(@submit="doLogin")
                 v-text-field(
+                  prepend-icon="email"
+                  type="email"
                   v-model="email"
+                  name="email"
                   label="Email"
                   required
                 )
                 v-text-field(
+                  prepend-icon="lock"
                   v-model="password"
                   label="Senha"
                   type="password"
+                  required
                 )
 
             v-card-actions
               v-spacer
-              v-btn Limpar
+              v-btn(@click="clear") Limpar
               v-btn(@click="doLogin") Login
 </template>
 
@@ -45,6 +48,10 @@ export default {
       } catch (err) {
         console.warn(err)
       }
+    },
+    clear() {
+      this.email = ''
+      this.password = ''
     }
   }
 }
