@@ -1,7 +1,7 @@
 <template lang="pug">
   .layout
-    top-bar
     side-bar
+    top-bar
     v-content
       v-container(fluid fill-height)
         slot

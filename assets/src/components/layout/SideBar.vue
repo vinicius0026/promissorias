@@ -2,16 +2,18 @@
   v-navigation-drawer(
     fixed
     app
-    v-model="showSideBar"
+    :value="showSideBar"
+    @input="setSideBar"
     :clipped="$vuetify.breakpoint.mdAndUp"
   )
-    v-list(dense)
+    v-list
       template(v-for="item in items")
         side-bar-item(:icon="item.icon" :label="item.label")
 </template>
 
 <script>
 import SideBarItem from './SideBarItem.vue'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -19,9 +21,14 @@ export default {
   },
   data() {
     return {
-      showSideBar: true,
       items: [{ icon: 'people', label: 'Usuários' }]
     }
+  },
+  computed: {
+    ...mapGetters(['showSideBar'])
+  },
+  methods: {
+    ...mapMutations(['setSideBar'])
   }
 }
 </script>
