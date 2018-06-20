@@ -3,11 +3,11 @@
     v-container(fluid fill-height)
       v-layout(align-center justify-center)
         v-flex(xs12 sm8)
-          v-card.elevation-12
-            v-toolbar(dark color="primary")
-              v-toolbar-title Login
-            v-card-text
-              v-form(@submit="doLogin")
+          v-form(@submit="doLogin")
+            v-card.elevation-12
+              v-toolbar(dark color="primary")
+                v-toolbar-title Login
+              v-card-text
                 v-text-field(
                   prepend-icon="email"
                   type="email"
@@ -24,10 +24,10 @@
                   required
                 )
 
-            v-card-actions
-              v-spacer
-              v-btn(@click="clear") Limpar
-              v-btn(@click="doLogin") Login
+              v-card-actions
+                v-spacer
+                v-btn(@click="clear") Limpar
+                v-btn(@click="doLogin" type="submit") Login
 </template>
 
 <script>
