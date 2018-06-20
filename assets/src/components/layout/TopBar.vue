@@ -27,12 +27,12 @@
         v-btn(icon slot="activator")
           v-icon account_circle
         v-list
-          v-list-tile(@click="")
+          v-list-tile(@click="logout")
             v-list-tile-title Logout
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -41,7 +41,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['toggleSideBar'])
+    ...mapMutations(['toggleSideBar']),
+    ...mapActions(['logout'])
   }
 }
 </script>

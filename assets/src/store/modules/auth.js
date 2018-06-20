@@ -1,4 +1,4 @@
-import { login } from '../../services/auth'
+import { login, logout } from '../../services/auth'
 
 const state = {
   user: null
@@ -25,14 +25,31 @@ const mutations = {
       console.warn(`error loading user from local storage: ${err}`)
       state.user = null
     }
+  },
+  clearUser(state) {
+    state.user = null
+    try {
+      window.localStorage.removeItem('user')
+    } catch (err) {
+      console.warn(`error removing user from local storage ${err}`)
+    }
   }
 }
 
 const actions = {
-  login: async ({ commit }, { email, password }) => {
+  async login({ commit }, { email, password }) {
     const { data } = await login(email, password)
     const { user } = data
     commit('setUser', user)
+  },
+  async logout({ commit }) {
+    try {
+      await logout()
+    } catch (err) {
+      console.warn(`error logging out ${err}`)
+    } finally {
+      commit('clearUser')
+    }
   }
 }
 
