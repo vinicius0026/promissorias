@@ -3,6 +3,8 @@ defmodule PromissoriasWeb.UserController do
 
   alias Promissorias.Accounts
 
+  plug :authenticate when action in [:index, :show, :create]
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render conn, "index.json", users: users
@@ -28,5 +30,15 @@ defmodule PromissoriasWeb.UserController do
     conn
     |> put_status(:bad_request)
     |> render("error.json", changeset: %{ errors: [credential: "missing credentials"]})
+  end
+
+  defp authenticate(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> halt()
+    end
   end
 end

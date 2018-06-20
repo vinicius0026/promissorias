@@ -11,6 +11,8 @@ defmodule PromissoriasWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug PromissoriasWeb.Auth
   end
 
   scope "/", PromissoriasWeb do
@@ -28,6 +30,7 @@ defmodule PromissoriasWeb.Router do
   scope "/auth", PromissoriasWeb do
     pipe_through :api
 
-    post "/", AuthController, :login
+    post "/", SessionController, :login
+    delete "/", SessionController, :logout
   end
 end
