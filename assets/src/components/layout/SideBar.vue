@@ -8,7 +8,7 @@
   )
     v-list
       template(v-for="item in items")
-        side-bar-item(:icon="item.icon" :label="item.label")
+        side-bar-item(:icon="item.icon" :label="item.label" :to="item.to")
 </template>
 
 <script>
@@ -21,7 +21,11 @@ export default {
   },
   data() {
     return {
-      items: [{ icon: 'people', label: 'Usuários' }]
+      items: [
+        { icon: 'dashboard', label: 'Principal', to: 'Home' },
+        { icon: 'description', label: 'Relatórios', to: 'Reports' },
+        { icon: 'people', label: 'Usuários', to: 'Users' }
+      ]
     }
   },
   computed: {

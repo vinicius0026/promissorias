@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-list-tile(@click="")
+  v-list-tile(:to="{name: to}" exact)
     v-list-tile-action
       v-icon {{ icon }}
     v-list-tile-content
@@ -14,6 +14,10 @@ export default {
       default: ''
     },
     label: {
+      type: String,
+      required: true
+    },
+    to: {
       type: String,
       required: true
     }
