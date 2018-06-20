@@ -81,13 +81,12 @@ module.exports = {
         }
       },
       {
-        test: /\.styl(us)?$/,
-        use: ['vue-style-loader', 'css-loader', 'stylus-loader']
-      },
-      {
         test: /\.pug$/,
         loader: 'pug-plain-loader'
       }
+    ],
+    loaders: [
+      { test: /\.styl$/, loader: 'style-loader!css-loader!stylus-loader' }
     ]
   },
   node: {
