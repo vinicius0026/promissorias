@@ -29,4 +29,25 @@ defmodule PromissoriasWeb.Auth do
   def logout(conn) do
     configure_session(conn, drop: true)
   end
+
+  def authenticate_user(conn, _opts) do
+    if conn.assigns.current_user do
+      conn
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> halt()
+    end
+  end
+
+  def ensure_admin_privileges(conn, _opts) do
+    if conn.assigns.current_user.credential.is_admin do
+      conn
+    else
+      conn
+      |> put_status(:unauthorized)
+      |> Phoenix.Controller.render(PromissoriasWeb.SessionView, "missing_privilege.json")
+      |> halt()
+    end
+  end
 end

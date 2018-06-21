@@ -23,14 +23,16 @@ defmodule PromissoriasWeb do
 
       import Plug.Conn
       import PromissoriasWeb.Gettext
+      import PromissoriasWeb.Auth, only: [authenticate_user: 2, ensure_admin_privileges: 2]
       alias PromissoriasWeb.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/promissorias_web/templates",
-                        namespace: PromissoriasWeb
+      use Phoenix.View,
+        root: "lib/promissorias_web/templates",
+        namespace: PromissoriasWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
@@ -49,6 +51,7 @@ defmodule PromissoriasWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+      import PromissoriasWeb.Auth, only: [authenticate_user: 2, ensure_admin_privileges: 2]
     end
   end
 

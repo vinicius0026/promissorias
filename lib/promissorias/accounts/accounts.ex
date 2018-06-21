@@ -8,11 +8,15 @@ defmodule Promissorias.Accounts do
   alias Promissorias.Accounts.User
 
   def list_users do
-    Repo.all(User)
+    User
+    |> Repo.all()
+    |> Repo.preload(:credential)
   end
 
   def get_user(id) do
-    Repo.get(User, id)
+    User
+    |> Repo.get(id)
+    |> Repo.preload(:credential)
   end
 
   def get_user!(id) do
@@ -147,8 +151,10 @@ defmodule Promissorias.Accounts do
     cond do
       user && Comeonin.Bcrypt.checkpw(given_pass, user.credential.password_hash) ->
         {:ok, user}
+
       user ->
         {:error, :unauthorized}
+
       true ->
         Comeonin.Bcrypt.dummy_checkpw()
         {:error, :not_found}

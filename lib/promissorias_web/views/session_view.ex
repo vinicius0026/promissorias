@@ -12,4 +12,8 @@ defmodule PromissoriasWeb.SessionView do
   def render("unauthorized.json", _) do
     %{ok: false, info: "incorrect credentials"}
   end
+
+  def render("missing_privilege.json", _) do
+    %{ok: false, info: "missing privilege"}
+  end
 end
