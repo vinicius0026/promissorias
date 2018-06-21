@@ -3,7 +3,7 @@
     side-bar
     top-bar
     v-content
-      v-container(fluid fill-height)
+      v-container(fluid)
         slot
 </template>
 
