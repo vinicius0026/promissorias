@@ -8,4 +8,8 @@ defmodule PromissoriasWeb.SessionView do
   def render("logout.json", _) do
     %{ok: true, info: "logged out"}
   end
+
+  def render("unauthorized.json", _) do
+    %{ok: false, info: "incorrect credentials"}
+  end
 end
