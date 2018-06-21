@@ -3,18 +3,21 @@
     layout(v-if="isAuthenticated")
       router-view
     login(v-else)
+    snack
 </template>
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
 import Login from './views/Login'
 import Layout from './components/layout/Layout.vue'
+import Snack from './components/layout/Snack.vue'
 
 export default {
   name: 'App',
   components: {
     Login,
-    Layout
+    Layout,
+    Snack
   },
   computed: {
     ...mapGetters(['isAuthenticated'])
