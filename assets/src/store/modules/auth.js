@@ -39,8 +39,7 @@ const mutations = {
 
 const actions = {
   async login({ commit }, { email, password }) {
-    const { data } = await login(email, password)
-    const { user } = data
+    const { user } = await login(email, password)
     commit('setUser', user)
   },
   async logout({ commit }) {

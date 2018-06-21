@@ -11,8 +11,9 @@ axios.interceptors.response.use(
   }
 )
 
-export const login = (email, password) => {
-  return axios.post('/auth', { email, password })
+export const login = async (email, password) => {
+  const { data } = await axios.post('/auth', { email, password })
+  return data
 }
 
 export const logout = () => {
