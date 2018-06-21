@@ -32,6 +32,7 @@
 
 <script>
 import { mapActions } from 'vuex'
+import snack from '../util/snack'
 
 export default {
   data() {
@@ -42,11 +43,11 @@ export default {
   },
   methods: {
     ...mapActions(['login']),
-    doLogin() {
+    async doLogin() {
       try {
-        this.login({ email: this.email, password: this.password })
+        await this.login({ email: this.email, password: this.password })
       } catch (err) {
-        console.warn(err)
+        snack.error('Email ou senha incorretos')
       }
     },
     clear() {
