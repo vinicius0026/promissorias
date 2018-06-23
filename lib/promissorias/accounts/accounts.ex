@@ -20,7 +20,9 @@ defmodule Promissorias.Accounts do
   end
 
   def get_user!(id) do
-    Repo.get!(User, id)
+    User
+    |> Repo.get!(id)
+    |> Repo.preload(:credential)
   end
 
   def get_user_by(params) do
