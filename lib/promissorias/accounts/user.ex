@@ -6,9 +6,9 @@ defmodule Promissorias.Accounts.User do
   @derive {Jason.Encoder, only: [:id, :name, :username, :credential]}
 
   schema "users" do
-    field :name, :string
-    field :username, :string
-    has_one :credential, Credential
+    field(:name, :string)
+    field(:username, :string)
+    has_one(:credential, Credential)
 
     timestamps()
   end
@@ -24,6 +24,7 @@ defmodule Promissorias.Accounts.User do
   def registration_changeset(user, params) do
     user
     |> changeset(params)
+    |> validate_required([:credential])
     |> Ecto.Changeset.cast_assoc(:credential, with: &Credential.changeset/2)
   end
 end
