@@ -2,6 +2,9 @@ defmodule PromissoriasWeb.UserController do
   use PromissoriasWeb, :controller
 
   alias Promissorias.Accounts
+  alias Promissorias.Accounts.User
+
+  action_fallback(PromissoriasWeb.FallbackController)
 
   def index(conn, _params) do
     users = Accounts.list_users()
@@ -9,25 +12,15 @@ defmodule PromissoriasWeb.UserController do
   end
 
   def show(conn, %{"id" => id}) do
-    user = Accounts.get_user(id)
+    user = Accounts.get_user!(id)
     render(conn, "show.json", user: user)
   end
 
-  def create(conn, %{"credential" => _creds} = user_params) do
-    case Accounts.register_user(user_params) do
-      {:ok, user} ->
-        render(conn, "show.json", user: user)
-
-      {:error, %Ecto.Changeset{} = changeset} ->
-        conn
-        |> put_status(:bad_request)
-        |> render("error.json", changeset: changeset)
+  def create(conn, user_params) do
+    with {:ok, %User{} = user} <- Accounts.register_user(user_params) do
+      conn
+      |> put_status(:created)
+      |> render("show.json", user: user)
     end
-  end
-
-  def create(conn, _user_params) do
-    conn
-    |> put_status(:bad_request)
-    |> render("error.json", changeset: %{errors: [credential: "missing credentials"]})
   end
 end
