@@ -35,6 +35,10 @@ defmodule Promissorias.Accounts do
     |> Repo.insert()
   end
 
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
+
   def register_user(attrs \\ %{}) do
     %User{}
     |> User.registration_changeset(attrs)

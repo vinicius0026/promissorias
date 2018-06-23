@@ -11,12 +11,12 @@
       td {{ props.item.credential && props.item.credential.email }}
       td {{ props.item.credential && props.item.credential.is_admin }}
       td
-        v-btn(icon)
+        v-btn(icon @click="removeUser(props.item.id)")
           v-icon delete
 </template>
 
 <script>
-import { loadUsers } from '@/services/users'
+import { loadUsers, removeUser } from '@/services/users'
 import snack from '@/util/snack'
 
 export default {
@@ -71,6 +71,21 @@ export default {
         console.warn(err)
       } finally {
         this.loading = false
+      }
+    },
+    async removeUser(id) {
+      if (
+        window.confirm(
+          'Tem certeza que deseja remover este usuário? Esta ação não pode ser desfeita'
+        )
+      ) {
+        try {
+          await removeUser(id)
+          this.doLoadUsers()
+        } catch (err) {
+          snack.error('Erro ao remover usuário')
+          console.warn(err)
+        }
       }
     }
   }

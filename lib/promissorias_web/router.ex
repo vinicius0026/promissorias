@@ -25,7 +25,7 @@ defmodule PromissoriasWeb.Router do
   scope "/api/users", PromissoriasWeb do
     pipe_through([:api, :authenticate_user, :ensure_admin_privileges])
 
-    resources("/", UserController, only: [:index, :show, :create])
+    resources("/", UserController, only: [:index, :show, :create, :delete])
   end
 
   scope "/auth", PromissoriasWeb do
