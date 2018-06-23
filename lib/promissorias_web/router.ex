@@ -22,10 +22,10 @@ defmodule PromissoriasWeb.Router do
     get("/", AppController, :index)
   end
 
-  scope "/api/users", PromissoriasWeb do
-    pipe_through([:api, :authenticate_user, :ensure_admin_privileges])
+  scope "/api", PromissoriasWeb do
+    pipe_through([:api, :authenticate_user])
 
-    resources("/", UserController, only: [:index, :show, :create, :delete])
+    resources("/users", UserController, only: [:index, :show, :create, :delete])
   end
 
   scope "/auth", PromissoriasWeb do

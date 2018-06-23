@@ -4,6 +4,8 @@ defmodule PromissoriasWeb.UserController do
   alias Promissorias.Accounts
   alias Promissorias.Accounts.User
 
+  plug(:ensure_admin_privileges)
+
   action_fallback(PromissoriasWeb.FallbackController)
 
   def index(conn, _params) do
