@@ -36,6 +36,8 @@ defmodule PromissoriasWeb.Auth do
     else
       conn
       |> put_status(:unauthorized)
+      |> Phoenix.Controller.put_view(PromissoriasWeb.SessionView)
+      |> Phoenix.Controller.render("unauthorized.json")
       |> halt()
     end
   end
@@ -46,7 +48,8 @@ defmodule PromissoriasWeb.Auth do
     else
       conn
       |> put_status(:unauthorized)
-      |> Phoenix.Controller.render(PromissoriasWeb.SessionView, "missing_privilege.json")
+      |> Phoenix.Controller.put_view(PromissoriasWeb.SessionView)
+      |> Phoenix.Controller.render("missing_privilege.json")
       |> halt()
     end
   end
