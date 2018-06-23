@@ -1,4 +1,5 @@
 import { login, logout } from '../../services/auth'
+import router from '@/router'
 
 const state = {
   user: null
@@ -45,6 +46,7 @@ const actions = {
   async logout({ commit }) {
     try {
       await logout()
+      router.push({ name: 'Home' })
     } catch (err) {
       console.warn(`error logging out ${err}`)
     } finally {
