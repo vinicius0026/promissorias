@@ -16,6 +16,12 @@
       v-toolbar-title.ml-0.pl-3(style="width: 300px")
         v-toolbar-side-icon(v-if="isAdmin" @click.stop="toggleSideBar")
         span.hidden-sm-and-down Promissórias
+      v-btn(flat @click="openNewPromissoryModal")
+        v-icon add
+        | Nova Promissória
+      v-btn(flat)
+        v-icon attach_money
+        | Receber Pagamento
       v-text-field.hidden-sm-and-down(
         flat
         solo-inverted
@@ -39,8 +45,11 @@ export default {
     ...mapGetters(['isAdmin'])
   },
   methods: {
-    ...mapMutations(['toggleSideBar']),
-    ...mapActions(['logout'])
+    ...mapMutations(['toggleSideBar', 'setNewPromissoryModalVisibility']),
+    ...mapActions(['logout']),
+    openNewPromissoryModal() {
+      this.setNewPromissoryModalVisibility(true)
+    }
   }
 }
 </script>

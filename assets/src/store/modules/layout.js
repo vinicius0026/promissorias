@@ -1,12 +1,14 @@
 const state = {
   showSideBar: true,
-  snackMessage: {}
+  snackMessage: {},
+  showNewPromissoryModal: false
 }
 
 const getters = {
   showSideBar: state => state.showSideBar,
   snackMessage: state => state.snackMessage,
-  shouldShowSnackMessage: state => !!state.snackMessage.message
+  shouldShowSnackMessage: state => !!state.snackMessage.message,
+  showNewPromissoryModal: state => state.showNewPromissoryModal
 }
 
 const mutations = {
@@ -26,6 +28,9 @@ const mutations = {
   },
   hideSnackMessage(state) {
     state.snackMessage = {}
+  },
+  setNewPromissoryModalVisibility(state, visibility) {
+    state.showNewPromissoryModal = visibility
   }
 }
 
