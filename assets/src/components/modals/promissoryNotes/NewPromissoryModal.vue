@@ -2,7 +2,7 @@
   v-dialog(
     :value="showNewPromissoryModal"
     @input="setNewPromissoryModalVisibility"
-    max-width="500px"
+    max-width="800px"
     persistent
   )
     v-form(@submit.prevent="submit")
@@ -41,6 +41,26 @@
                   label="Endereço"
                   required
                 )
+            v-layout(row)
+              v-flex.mr-1(xs12 sm6)
+                v-text-field(
+                  v-model="promissory.amount"
+                  type="number"
+                  name="amount"
+                  label="Valor"
+                  required
+                )
+              v-flex.ml1(xs12 sm6)
+                v-text-field(
+                  v-model="promissory.installmentsCount"
+                  type="number"
+                  name="installmentsCount"
+                  label="Número de Parcelas"
+                  required
+                )
+            v-layout(row)
+              v-flex(xs12)
+                new-installments-table(:amount="Number(promissory.amount)" :installmentsCount="Number(promissory.installmentsCount)")
           v-card-actions
             v-spacer
             v-btn(color="danger" @click="close")
@@ -51,8 +71,12 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import NewInstallmentsTable from '@/components/modals/promissoryNotes/NewInstallmentsTable'
 
 export default {
+  components: {
+    NewInstallmentsTable
+  },
   data() {
     return {
       customer: {},
