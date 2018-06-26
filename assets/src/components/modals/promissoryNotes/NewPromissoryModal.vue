@@ -24,6 +24,7 @@
                   v-model="customer.cpf"
                   name="cpf"
                   label="CPF"
+                  mask="###-###-###-##"
                   required
                 )
               v-flex.ml-1(xs12 sm6)
@@ -31,6 +32,7 @@
                   v-model="customer.phone"
                   name="phone"
                   label="Telefone"
+                  mask="(##) # ####-####"
                   required
                 )
             v-layout(row)
@@ -48,6 +50,7 @@
                   type="number"
                   name="amount"
                   label="Valor"
+                  min="0"
                   required
                 )
               v-flex.ml1(xs12 sm6)
@@ -56,6 +59,8 @@
                   type="number"
                   name="installmentsCount"
                   label="Número de Parcelas"
+                  min="0"
+                  max="5"
                   required
                 )
             v-layout(row)
@@ -89,6 +94,8 @@ export default {
   methods: {
     ...mapMutations(['setNewPromissoryModalVisibility']),
     close() {
+      this.customer = {}
+      this.promissory = {}
       this.setNewPromissoryModalVisibility(false)
     },
     submit() {
