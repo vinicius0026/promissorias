@@ -13,6 +13,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@fnando/cpf": "^0.1.0",
     "axios": "^0.18.0",
     "date-fns": "^1.29.0",
     "vue": "^2.5.2",
