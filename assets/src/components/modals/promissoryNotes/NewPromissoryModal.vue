@@ -26,7 +26,7 @@
                   v-model="customer.cpf"
                   name="cpf"
                   label="CPF"
-                  mask="###-###-###-##"
+                  mask="###.###.###-##"
                   required
                   :error-messages="errorMessages($v.customer.cpf)"
                   @blur="$v.customer.cpf.$touch()"
@@ -73,12 +73,15 @@
                 )
             v-layout(row)
               v-flex(xs12)
-                new-installments-table(:amount="Number(promissory.amount)" :installmentsCount="Number(promissory.installmentsCount)")
+                new-installments-table(
+                  :amount="Number(promissory.amount)"
+                  :installmentsCount="Number(promissory.installmentsCount)"
+                )
           v-card-actions
             v-spacer
             v-btn(color="danger" @click="close")
               | Cancelar
-            v-btn(color="primary" type="submit")
+            v-btn(color="primary" type="submit" :disabled="$v.$invalid")
               | Criar
 </template>
 
