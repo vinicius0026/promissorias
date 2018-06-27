@@ -17,6 +17,8 @@
                   name="name"
                   label="Nome"
                   required
+                  :error-messages="errorMessages($v.customer.name)"
+                  @blur="$v.customer.name.$touch()"
                 )
             v-layout(row)
               v-flex.mr-1(xs12 sm6)
@@ -26,14 +28,18 @@
                   label="CPF"
                   mask="###-###-###-##"
                   required
+                  :error-messages="errorMessages($v.customer.cpf)"
+                  @blur="$v.customer.cpf.$touch()"
                 )
               v-flex.ml-1(xs12 sm6)
                 v-text-field(
                   v-model="customer.phone"
                   name="phone"
                   label="Telefone"
-                  mask="(##) # ####-####"
+                  v-mask="['(##) ####-####', '(##) #####-####']"
                   required
+                  :error-messages="errorMessages($v.customer.phone)"
+                  @blur="$v.customer.phone.$touch()"
                 )
             v-layout(row)
               v-flex(xs12)
@@ -42,6 +48,8 @@
                   name="address"
                   label="Endereço"
                   required
+                  :error-messages="errorMessages($v.customer.address)"
+                  @blur="$v.customer.address.$touch()"
                 )
             v-layout(row)
               v-flex.mr-1(xs12 sm6)
@@ -76,16 +84,43 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import { validationMixin } from 'vuelidate'
+import { required, cpf, minLength, maxLength } from '@/util/validators'
+import errorMessages from '@/mixins/errorMessages'
 import NewInstallmentsTable from '@/components/modals/promissoryNotes/NewInstallmentsTable'
+import { mask } from 'vue-the-mask'
 
 export default {
   components: {
     NewInstallmentsTable
   },
+  directives: { mask },
+  mixins: [validationMixin, errorMessages],
   data() {
     return {
       customer: {},
       promissory: {}
+    }
+  },
+  validations() {
+    return {
+      customer: {
+        name: {
+          required
+        },
+        cpf: {
+          required,
+          cpf
+        },
+        phone: {
+          required,
+          minLength: minLength(14),
+          maxLength: maxLength(15)
+        },
+        address: {
+          required
+        }
+      }
     }
   },
   computed: {
