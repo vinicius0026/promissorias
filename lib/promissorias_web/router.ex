@@ -26,6 +26,7 @@ defmodule PromissoriasWeb.Router do
     pipe_through([:api, :authenticate_user])
 
     resources("/users", UserController, only: [:index, :show, :create, :delete])
+    resources("/customers", CustomerController)
   end
 
   scope "/auth", PromissoriasWeb do
