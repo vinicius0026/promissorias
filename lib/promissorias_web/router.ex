@@ -27,6 +27,7 @@ defmodule PromissoriasWeb.Router do
 
     resources("/users", UserController, only: [:index, :show, :create, :delete])
     resources("/customers", CustomerController)
+    resources("/promissory_notes", PromissoryNoteController)
   end
 
   scope "/auth", PromissoriasWeb do
