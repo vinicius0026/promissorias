@@ -76,6 +76,7 @@
                 new-installments-table(
                   :amount="Number(promissory.amount)"
                   :installmentsCount="Number(promissory.installmentsCount)"
+                  @update="updateInstallments"
                 )
           v-card-actions
             v-spacer
@@ -93,7 +94,10 @@ import errorMessages from '@/mixins/errorMessages'
 import NewInstallmentsTable from '@/components/modals/promissoryNotes/NewInstallmentsTable'
 import { mask } from 'vue-the-mask'
 
+import axios from 'axios'
+
 export default {
+  name: 'NewPromissoryModal',
   components: {
     NewInstallmentsTable
   },
@@ -102,7 +106,9 @@ export default {
   data() {
     return {
       customer: {},
-      promissory: {}
+      promissory: {
+        installments: []
+      }
     }
   },
   validations() {
@@ -137,7 +143,14 @@ export default {
       this.setNewPromissoryModalVisibility(false)
     },
     submit() {
-      console.log('submit')
+      // TODO: move to service
+      axios.post('/api/promissory_notes', {
+        customer: this.customer,
+        promissory: this.promissory
+      })
+    },
+    updateInstallments(installments) {
+      this.promissory.installments = installments
     }
   }
 }

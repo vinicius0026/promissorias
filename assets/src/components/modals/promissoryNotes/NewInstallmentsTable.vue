@@ -10,7 +10,7 @@
       td(style="width: 220px")
         date-picker(
           label="Vencimento"
-          v-model="props.item.dueDate"
+          v-model="props.item.due_date"
         )
       td.text-xs-right {{ formatCurrency(props.item.amount) }}
 </template>
@@ -47,7 +47,7 @@ export default {
           text: 'Vencimento',
           align: 'left',
           sortable: false,
-          value: 'dueDate'
+          value: 'due_date'
         },
         {
           text: 'Valor',
@@ -65,6 +65,9 @@ export default {
     },
     installmentsCount(val) {
       this.generateInstallments(this.amount, val)
+    },
+    installments(val) {
+      this.$emit('update', val)
     }
   },
   methods: {
@@ -76,7 +79,7 @@ export default {
       this.installments = [...Array(installmentsCount).keys()].map(i => ({
         installmentNumber: i + 1,
         amount: amount / installmentsCount,
-        dueDate: addMonths(new Date(), i + 1)
+        due_date: addMonths(new Date(), i + 1)
       }))
     }
   }
