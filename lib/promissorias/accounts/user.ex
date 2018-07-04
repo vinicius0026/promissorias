@@ -24,7 +24,6 @@ defmodule Promissorias.Accounts.User do
   def registration_changeset(user, params) do
     user
     |> changeset(params)
-    |> validate_required([:credential])
-    |> Ecto.Changeset.cast_assoc(:credential, with: &Credential.changeset/2)
+    |> cast_assoc(:credential, with: &Credential.changeset/2)
   end
 end
