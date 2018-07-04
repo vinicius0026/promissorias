@@ -45,7 +45,8 @@ defmodule Promissorias.MixProject do
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
       {:brcpfcnpj, "~> 0.1.0"},
-      {:decimal, "~> 1.0"}
+      {:decimal, "~> 1.0"},
+      {:elixir_uuid, "~> 1.2"}
     ]
   end
 
