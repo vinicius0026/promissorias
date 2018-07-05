@@ -82,7 +82,7 @@
             v-spacer
             v-btn(color="danger" @click="close")
               | Cancelar
-            v-btn(color="primary" type="submit" :disabled="$v.$invalid")
+            v-btn(color="primary" type="submit" :disabled="$v.$invalid || loading")
               | Criar
 </template>
 
@@ -93,8 +93,8 @@ import { required, cpf, minLength, maxLength } from '@/util/validators'
 import errorMessages from '@/mixins/errorMessages'
 import NewInstallmentsTable from '@/components/modals/promissoryNotes/NewInstallmentsTable'
 import { mask } from 'vue-the-mask'
-
-import axios from 'axios'
+import { createPromissoryNote } from '@/services/promissoryNotes'
+import snack from '@/util/snack'
 
 export default {
   name: 'NewPromissoryModal',
@@ -108,7 +108,8 @@ export default {
       customer: {},
       promissory: {
         installments: []
-      }
+      },
+      loading: false
     }
   },
   validations() {
@@ -142,12 +143,20 @@ export default {
       this.promissory = {}
       this.setNewPromissoryModalVisibility(false)
     },
-    submit() {
-      // TODO: move to service
-      axios.post('/api/promissory_notes', {
-        customer: this.customer,
-        promissory: this.promissory
-      })
+    async submit() {
+      this.loading = true
+      try {
+        const promissoryNote = await createPromissoryNote(
+          this.customer,
+          this.promissory
+        )
+        snack.success('Promissória criada com sucesso')
+        this.close()
+      } catch (err) {
+        snack.error('Erro ao criar promissória')
+      } finally {
+        this.loading = false
+      }
     },
     updateInstallments(installments) {
       this.promissory.installments = installments
