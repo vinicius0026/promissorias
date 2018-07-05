@@ -12,7 +12,7 @@ import { mapGetters, mapMutations } from 'vuex'
 import Login from './views/Login'
 import Layout from './components/layout/Layout.vue'
 import Snack from './components/layout/Snack.vue'
-import NewPromissoryModal from '@/components/modals/promissoryNotes/NewPromissoryModal.vue'
+import NewPromissoryModal from '@/components/modals/newPromissoryNote/NewPromissoryModal.vue'
 
 export default {
   name: 'App',
