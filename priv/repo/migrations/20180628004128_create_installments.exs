@@ -3,7 +3,7 @@ defmodule Promissorias.Repo.Migrations.CreateInstallments do
 
   def change do
     create table(:installments) do
-      add(:amount, :decimal)
+      add(:amount, :decimal, precision: 10, scale: 2)
       add(:paid_amount, :decimal)
       add(:due_date, :date)
       add(:barcode, :string)

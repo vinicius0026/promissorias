@@ -137,7 +137,10 @@ export default {
     ...mapGetters(['showNewPromissoryModal'])
   },
   methods: {
-    ...mapMutations(['setNewPromissoryModalVisibility']),
+    ...mapMutations([
+      'setNewPromissoryModalVisibility',
+      'setPromissoryToPrint'
+    ]),
     close() {
       this.customer = {}
       this.promissory = {}
@@ -151,6 +154,7 @@ export default {
           this.promissory
         )
         snack.success('Promissória criada com sucesso')
+        this.setPromissoryToPrint(promissoryNote)
         this.close()
       } catch (err) {
         snack.error('Erro ao criar promissória')
