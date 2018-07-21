@@ -1,38 +1,57 @@
 <template lang="pug">
   .installment-print-view
+    barcode.installment-print-view__barcode(
+      :value="installment.id"
+      :width="2"
+      :height="50"
+      :margin="0"
+      :font-size="15"
+     )
     .installment-print-view__number
-      | Nº {{ installment.id }}
-    .installment-print-view__barcode
-      | {{ installment.barcode }}
+      | Nº
+      span.user-data {{ promissoryNumber }} / {{ promissoryCount }}
     .installment-print-view__amount
-      | {{ formatCurrency(installment.amount) }}
+      span.user-data {{ formatCurrency(installment.amount) }}
     .installment-print-view__due-date
-      | {{ formatDate(installment.due_date) }}
+      span.user-data {{ formatDate(installment.due_date) }}
     .installment-print-view__main-text.full-width
-      | Em {{ formatDateLong(installment.due_date) }}
-      | pagarei por esta única via de Nota Promissória
-      | a Auto Escola Transytar CNPJ: xxxxxxxxxx ou à sua ordem
-      | a quantia de {{ formatCurrency(installment.amount) }}
-      | em moeda corrente deste país
+      | Em
+      span.user-data {{ formatDateLong(installment.due_date) }}
+      | pagarei por esta única via de Nota Promissória à
+      span.user-data Auto Escola Transytar
+      | CNPJ:
+      span.user-data xxxxxxxxxx
+      | ou à sua ordem a quantia de
+      span.user-data {{ formatCurrency(installment.amount) }}
+      | em moeda corrente deste país.
     .installment-print-view__city
-      | Pagável em Palhoça / SC
+      | Pagável em
+      span.user-data Palhoça / SC
     .installment-print-view__issue_date
-      | Data da Emissão: xxxxx
-    .installment-print-view__issuer
-      | Emitente {{ promissory.customer.name }}
+      | Data da Emissão:
+      span.user-data xxxxx
+    .installment-print-view__issuer.full-width
+      | Emitente
+      span.user-data {{ promissory.customer.name }}
     .installment-print-view__cpf
-      | CPF {{ promissory.customer.cpf }}
+      | CPF
+      span.user-data {{ formatCpf(promissory.customer.cpf) }}
     .installment-print-view__address
-      | Endereço {{ promissory.customer.address }}
+      | Endereço
+      span.user-data {{ promissory.customer.address }}
     .installment-print-view__signature.full-width
-      | Assinatura do Emitente ____________________________________
+      | Assinatura do Emitente ________________________________________________________
 
 </template>
 
 <script>
 import formatters from '@/mixins/formatters'
+import VueBarcode from 'vue-barcode'
 
 export default {
+  components: {
+    barcode: VueBarcode
+  },
   mixins: [formatters],
   props: {
     installment: {
@@ -41,6 +60,14 @@ export default {
     },
     promissory: {
       type: Object,
+      required: true
+    },
+    promissoryNumber: {
+      type: Number,
+      required: true
+    },
+    promissoryCount: {
+      type: Number,
       required: true
     }
   }
@@ -54,8 +81,26 @@ export default {
   padding 5px
   display grid
   grid-template-columns repeat(4, 1fr)
-  grid-template-rows repeat(6, 1fr)
+  grid-template-rows repeat(6, auto)
+  grid-gap 10px
 
   .full-width
     grid-column 1 / -1
+
+  &__city
+    grid-column 1 / span 2
+
+  &__issue_date
+    grid-column 3 / span 2
+
+  &__address
+    grid-column 2 / span 3
+
+  &__signature
+    padding-top 25px
+
+  .user-data
+    font-weight bold
+    font-size 16px
+    margin 0 10px
 </style>

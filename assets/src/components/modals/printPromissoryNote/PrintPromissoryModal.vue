@@ -7,11 +7,13 @@
   )
     v-card(v-if="showPrintPromissoryModal")
       v-card-text(ref="printTarget")
-        template(v-for="installment in promissoryToPrint.installments")
+        template(v-for="(installment, i) in promissoryToPrint.installments")
           installment-print-view(
             :key="installment.id"
             :installment="installment"
             :promissory="promissoryToPrint"
+            :promissory-count="promissoryToPrint.installments.length"
+            :promissory-number="i + 1"
           )
       v-card-actions
         v-spacer
