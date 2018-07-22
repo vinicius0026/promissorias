@@ -25,6 +25,7 @@
 
 <script>
 import InstallmentPrintView from '@/components/modals/printPromissoryNote/InstallmentPrintView.vue'
+import print from '@/util/print'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
@@ -46,8 +47,8 @@ export default {
       this.clearPromissoryToPrint()
     },
     print() {
-      console.log(this.$refs)
-      this.$refs.printTarget.print()
+      const printTarget = this.$refs.printTarget
+      print(printTarget)
     }
   }
 }
